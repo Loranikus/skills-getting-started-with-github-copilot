@@ -16,6 +16,9 @@ class TestGetActivities:
     def test_returns_200_and_dict(self, client):
         """Test that GET /activities returns 200 status and dict response."""
         
+        # Arrange
+        # Using reset_activities and client fixtures
+        
         # Act
         response = client.get("/activities")
         
@@ -27,6 +30,7 @@ class TestGetActivities:
     def test_contains_all_activities(self, client):
         """Test that GET /activities returns all 9 expected activities."""
         
+        # Arrange
         expected_activities = {
             "Chess Club",
             "Programming Class",
@@ -57,6 +61,7 @@ class TestGetActivities:
     def test_each_activity_has_required_fields(self, client, field):
         """Test that all activities contain all required fields."""
         
+        # Arrange
         required_fields = {"description", "schedule", "max_participants", "participants"}
         
         # Act
@@ -71,6 +76,9 @@ class TestGetActivities:
     @pytest.mark.usefixtures("reset_activities")
     def test_participants_is_list(self, client):
         """Test that participants field contains a list for all activities."""
+        
+        # Arrange
+        # Using reset_activities and client fixtures
         
         # Act
         response = client.get("/activities")
@@ -87,6 +95,9 @@ class TestGetActivities:
     @pytest.mark.usefixtures("reset_activities")
     def test_description_is_non_empty_string(self, client):
         """Test that all activities have non-empty description strings."""
+        
+        # Arrange
+        # Using reset_activities and client fixtures
         
         # Act
         response = client.get("/activities")

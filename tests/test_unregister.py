@@ -15,6 +15,7 @@ class TestUnregister:
     def test_successful_unregister(self, client):
         """Test successful unregistration removes participant and returns 200."""
         
+        # Arrange
         email = "michael@mergington.edu"
         activity = "Chess Club"
         
@@ -32,10 +33,9 @@ class TestUnregister:
     def test_unregister_removes_from_activities_list(self, client):
         """Test that unregistered participant is removed from activities list."""
         
+        # Arrange
         email = "emma@mergington.edu"
         activity = "Programming Class"
-        
-        # Arrange: verify participant is in list
         initial_response = client.get("/activities")
         assert email in initial_response.json()[activity]["participants"]
         initial_count = len(initial_response.json()[activity]["participants"])
@@ -53,6 +53,7 @@ class TestUnregister:
     def test_unregister_not_registered_returns_400(self, client):
         """Test that unregistering non-registered participant returns 400."""
         
+        # Arrange
         email = "notregistered@mergington.edu"
         activity = "Tennis Club"
         
@@ -69,6 +70,7 @@ class TestUnregister:
     def test_unregister_nonexistent_activity_returns_404(self, client):
         """Test that unregistration from non-existent activity returns 404."""
         
+        # Arrange
         email = "test@mergington.edu"
         activity = "Nonexistent Activity"
         
@@ -85,15 +87,14 @@ class TestUnregister:
     def test_signup_then_unregister_workflow(self, client):
         """Test full workflow: signup to activity then unregister."""
         
+        # Arrange: Setup
         email = "workflow@mergington.edu"
         activity = "Art Studio"
-        
-        # Arrange: signup
         client.post(f"/activities/{activity}/signup?email={email}")
         verify_response = client.get("/activities")
         assert email in verify_response.json()[activity]["participants"]
         
-        # Act: unregister
+        # Act
         response = client.delete(
             f"/activities/{activity}/unregister?email={email}"
         )

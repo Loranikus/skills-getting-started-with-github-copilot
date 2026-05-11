@@ -15,6 +15,7 @@ class TestSignup:
     def test_successful_signup(self, client):
         """Test successful signup adds participant to activity and returns 200."""
         
+        # Arrange
         email = "newstudent@mergington.edu"
         activity = "Chess Club"
         
@@ -33,10 +34,9 @@ class TestSignup:
     def test_signup_appears_in_activities_list(self, client):
         """Test that newly signed up participant appears in activities list."""
         
+        # Arrange
         email = "newstudent@mergington.edu"
         activity = "Gym Class"
-        
-        # Arrange: count initial participants
         initial_response = client.get("/activities")
         initial_count = len(initial_response.json()[activity]["participants"])
         
@@ -53,6 +53,7 @@ class TestSignup:
     def test_duplicate_signup_returns_400(self, client):
         """Test that repeated signup with same email returns 400 error."""
         
+        # Arrange
         email = "michael@mergington.edu"
         activity = "Chess Club"
         
@@ -69,6 +70,7 @@ class TestSignup:
     def test_signup_nonexistent_activity_returns_404(self, client):
         """Test that signup to non-existent activity returns 404."""
         
+        # Arrange
         email = "test@mergington.edu"
         activity = "Nonexistent Activity"
         
@@ -91,6 +93,7 @@ class TestSignup:
     def test_signup_multiple_activities(self, client, activity):
         """Test successful signup for various activities."""
         
+        # Arrange
         email = f"student-{activity.replace(' ', '-')}@mergington.edu"
         
         # Act

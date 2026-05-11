@@ -14,6 +14,7 @@ class TestRootEndpoint:
     def test_root_redirects_to_static_index_html(self, client):
         """Test that GET / redirects to /static/index.html with status 307."""
         
+        # Arrange
         expected_status_code = 307
         expected_location = "/static/index.html"
         
